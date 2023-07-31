@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block container %}
+<style>
+td {
+text-align:center;
+}
+</style>
+<div class="card">
+        <div class="card-header">
+                <h5 class="card-title">Подпись входящего документа</h5>
+        </div>
+        <div class="card-body">
+            <div class="list-group">
+              <center><a href="#!" style="width: 40%;" class="list-group-item list-group-item-action list-group-item-success">
+
+                  {{user.last_name}} {{user.first_name}}</a></center>
+            </div>
+            <form  method="post"  >
+                    {% csrf_token %}
+                <center><button name="res" value="ку" class="btn btn-outline-success mt-2" type="submit">Подписать</button></center>
+            </form>
+        </div>
+    </div>
+
+{% endblock %}

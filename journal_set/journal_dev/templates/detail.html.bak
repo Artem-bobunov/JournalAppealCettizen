@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block container %}
+{% if user.is_authenticated %}
+
+<style>
+td,th {
+text-align:center;
+}
+</style>
+<form  method="post">
+<div class="card">
+    <div class="card-header">
+        <h5 class="card-title">Документ № {{details.npp}}</h5>
+    </div>
+    <div class="card-body">
+            {% csrf_token %}
+<table class="table table-bordered table-sm table-hover">
+    <thead  >
+    <tr class = "table-secondary">
+    <th>№ п/п</th>
+          <th>Дата поступления заявления</th>
+          <th>Краткое содержание заявления</th>
+          <th>ФИО исполнителя</th>
+          <th>Дата передачи исполнителю</th>
+          <th>Контрольный срок</th>
+          <th>Роспись исполнителя</th>
+          <th>Отметка об исполнении</th>
+    </tr>
+    </thead>
+  <tbody>
+      <td>{{details.npp|default_if_none:"&nbsp;"}}</td>
+      <td>{{details.dateInput|default_if_none:"&nbsp;"}}</td>
+      <td>{{details.content|default_if_none:"&nbsp;"}}</td>
+      <td>{{details.executor|default_if_none:"&nbsp;"}}</td>
+      <td>{{details.datePeredachi|default_if_none:"&nbsp;"}}</td>
+      <td>{{details.controlPeriod|default_if_none:"&nbsp;"}}</td>
+      <td>{{details.signature.user|default_if_none:"&nbsp;"}}</td>
+      <td>{{details.mark|default_if_none:"&nbsp;"}}</td>
+  </tbody>
+</table>
+
+        {% if n1 == n2   %}
+
+             {% if pg  %}
+              <center><a class="btn btn-warning mt-2" href="{% url 'marks' details.pk %}" >Подписать</a ></center>
+             {% endif%}
+         {% endif%}
+
+
+
+      {% if user.is_superuser %}
+          <center><a class="btn btn-warning mt-2" href="{% url 'update' details.pk %}">Редактировать</a ></center>
+      {%endif%}
+
+    </div>
+    </div>
+</form>
+{% endblock %}
